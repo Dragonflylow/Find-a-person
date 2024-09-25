@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Person</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 1em;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 1em 0 0.5em;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 0.75em;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find a Person</h1>
+        <p>Your trusted service providers in your city</p>
+    </header>
+
+    <div class="container">
+        <h2>Enter Your Location and Choose a Service</h2>
+
+        <form action="#" method="POST">
+            <label for="location">Enter Your City or Postcode:</label>
+            <input type="text" id="location" name="location" placeholder="E.g., London, SW1A 1AA" required>
+
+            <label for="service">Choose a Service Category:</label>
+            <select id="service" name="service" required>
+                <option value="">-- Select a Service --</option>
+                <option value="dog_walker">Dog Walker</option>
+                <option value="handyman">Handyman</option>
+                <option value="cleaners">Cleaners</option>
+                <option value="gardening">Gardening</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="electrician">Electrician</option>
+                <option value="pet_sitting">Pet Sitting</option>
+                <option value="tutoring">Tutoring</option>
+                <option value="fitness">Personal Fitness Trainer</option>
+                <option value="moving">Moving/Delivery Assistance</option>
+                <option value="babysitting">Babysitting/Nanny Services</option>
+                <option value="car_repair">Car Repair/Servicing</option>
+                <option value="organization">Home Organization</option>
+            </select>
+
+            <button type="submit">Find Service Providers</button>
+        </form>
+    </div>
+</body>
+</html>
