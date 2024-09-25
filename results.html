@@ -39,22 +39,76 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            cursor: pointer;
         }
         .provider img {
             max-width: 80px;
             border-radius: 50%;
             margin-right: 20px;
         }
+        /* Modal (overlay) styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5); 
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .payment-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .payment-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <header>
-        <a href="index.html">Find a Local</a>
+        <a href="index.html">Find a Person</a>
     </header>
 
     <div class="container">
         <h2 id="service-header"></h2>
         <div id="results"></div>
+    </div>
+
+    <!-- Modal (Overlay) -->
+    <div id="providerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Provider Details</h2>
+            <p id="modal-description">More details about the provider will go here...</p>
+            <button class="payment-button">Book and Pay</button>
+        </div>
     </div>
 
     <script>
@@ -73,16 +127,16 @@
             // Mock service providers (you can replace this with dynamic data)
             const providers = {
                 'dog_walker': [
-                    { name: 'Dog Walker 1', image: 'https://via.placeholder.com/80', location },
-                    { name: 'Dog Walker 2', image: 'https://via.placeholder.com/80', location }
+                    { name: 'Dog Walker 1', image: 'https://via.placeholder.com/80', description: 'Experienced dog walker in your area.' },
+                    { name: 'Dog Walker 2', image: 'https://via.placeholder.com/80', description: 'Reliable dog walking services.' }
                 ],
                 'handyman': [
-                    { name: 'Handyman 1', image: 'https://via.placeholder.com/80', location },
-                    { name: 'Handyman 2', image: 'https://via.placeholder.com/80', location }
+                    { name: 'Handyman 1', image: 'https://via.placeholder.com/80', description: 'Expert handyman for all your needs.' },
+                    { name: 'Handyman 2', image: 'https://via.placeholder.com/80', description: 'Professional handyman services.' }
                 ],
                 'cleaners': [
-                    { name: 'Cleaner 1', image: 'https://via.placeholder.com/80', location },
-                    { name: 'Cleaner 2', image: 'https://via.placeholder.com/80', location }
+                    { name: 'Cleaner 1', image: 'https://via.placeholder.com/80', description: 'Trusted cleaning services for your home.' },
+                    { name: 'Cleaner 2', image: 'https://via.placeholder.com/80', description: 'Affordable and reliable cleaning.' }
                 ]
             };
 
@@ -97,9 +151,10 @@
                     <img src="${provider.image}" alt="${provider.name}">
                     <div>
                         <h3>${provider.name}</h3>
-                        <p>Located in: ${provider.location}</p>
+                        <p>Located in: ${location}</p>
                     </div>
                 `;
+                providerDiv.onclick = () => showModal(provider);
                 resultsDiv.appendChild(providerDiv);
             });
 
@@ -108,7 +163,6 @@
             }
         }
 
-        window.onload = showResults;
-    </script>
-</body>
-</html>
+        function showModal(provider) {
+            const modal = document.getElementById('providerModal');
+            document.getElementById('modal-title').textContent = provider.name;
