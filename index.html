@@ -6,103 +6,72 @@
     <title>Find a Person</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f0f0f0;
         }
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 1em;
+            padding: 2em 0;
+            font-size: 3em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        h1 {
+        header h1 {
             margin: 0;
+            font-size: 4em;
+            text-shadow: 2px 2px #333;
         }
         .container {
             max-width: 800px;
-            margin: 2em auto;
-            padding: 1em;
+            margin: 4em auto;
+            padding: 2em;
             background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
         label {
-            display: block;
-            margin: 1em 0 0.5em;
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
         }
         input, select, button {
             width: 100%;
-            padding: 0.75em;
-            margin-bottom: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 1em;
+            margin-bottom: 1.5em;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            font-size: 1.1em;
         }
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
+            font-size: 1.3em;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #45a049;
         }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #fff;
+        .description {
+            text-align: center;
+            margin-top: 1em;
+            font-size: 1.2em;
+            color: #666;
         }
     </style>
-    <script>
-        function searchProviders() {
-            const postcode = document.getElementById('location').value.trim().toUpperCase();
-            const service = document.getElementById('service').value;
-
-            if (!postcode || !service) {
-                alert('Please enter a valid postcode and choose a service.');
-                return false;
-            }
-
-            // Assuming every postcode is valid for now.
-
-            // Mock service providers (for now)
-            const providers = {
-                'dog_walker': ['Dog Walker 1', 'Dog Walker 2'],
-                'handyman': ['Handyman 1', 'Handyman 2'],
-                'cleaners': ['Cleaner 1', 'Cleaner 2']
-            };
-
-            const availableProviders = providers[service] || [];
-
-            // Display results
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = ''; // Clear previous results
-            if (availableProviders.length) {
-                availableProviders.forEach(provider => {
-                    const div = document.createElement('div');
-                    div.className = 'result';
-                    div.textContent = provider;
-                    resultsDiv.appendChild(div);
-                });
-            } else {
-                resultsDiv.innerHTML = '<p>No providers found for your area and selected service.</p>';
-            }
-
-            return false; // Prevent form submission
-        }
-    </script>
 </head>
 <body>
     <header>
         <h1>Find a Person</h1>
-        <p>Your trusted service providers in your city</p>
     </header>
 
     <div class="container">
-        <h2>Enter Your Location and Choose a Service</h2>
-
-        <form onsubmit="return searchProviders();">
+        <form onsubmit="return handleSearch();">
             <label for="location">Enter Your City or Postcode:</label>
             <input type="text" id="location" name="location" placeholder="E.g., NW1, E1, SW1A" required>
 
@@ -112,13 +81,14 @@
                 <option value="dog_walker">Dog Walker</option>
                 <option value="handyman">Handyman</option>
                 <option value="cleaners">Cleaners</option>
-                <!-- Add more services as needed -->
             </select>
 
             <button type="submit">Find Service Providers</button>
         </form>
 
-        <div id="results"></div> <!-- Display results here -->
+        <div class="description">
+            <p>Find trusted service providers in your area with just a few clicks!</p>
+        </div>
     </div>
 </body>
 </html>
