@@ -55,19 +55,7 @@
         }
     </style>
     <script>
-        async function validatePostcode(postcode) {
-            const apiUrl = `https://api.postcodes.io/postcodes/${postcode}`;
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw new Error('Invalid postcode');
-                const data = await response.json();
-                return data.result;
-            } catch (error) {
-                return null; // Invalid postcode or API error
-            }
-        }
-
-        async function searchProviders() {
+        function searchProviders() {
             const postcode = document.getElementById('location').value.trim().toUpperCase();
             const service = document.getElementById('service').value;
 
@@ -76,20 +64,7 @@
                 return false;
             }
 
-            // Validate postcode using the Postcodes.io API
-            const postcodeData = await validatePostcode(postcode);
-
-            if (!postcodeData) {
-                alert('Invalid postcode. Please enter a valid UK postcode.');
-                return false;
-            }
-
-            // Check if the postcode is in London
-            const isLondon = postcodeData.admin_district.toLowerCase().includes('london');
-            if (!isLondon) {
-                alert('Sorry, we currently only serve London. Please enter a London postcode.');
-                return false;
-            }
+            // Assuming every postcode is valid for now.
 
             // Mock service providers (for now)
             const providers = {
