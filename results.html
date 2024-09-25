@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 2em 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .results-container {
+            max-width: 1000px;
+            margin: 2em auto;
+            padding: 1em;
+        }
+        .worker-card {
+            background-color: white;
+            margin: 1em 0;
+            padding: 1.5em;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .worker-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 1.5em;
+        }
+        .worker-details {
+            flex-grow: 1;
+        }
+        .worker-details h2 {
+            margin: 0;
+        }
+        .worker-details p {
+            margin: 0.5em 0;
+        }
+        .hire-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.75em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Service Providers in Your Area</h1>
+    </header>
+
+    <div class="results-container" id="resultsContainer">
+        <!-- Worker cards will be inserted here -->
+    </div>
+
+    <script>
+        // Mock data to simulate search results
+        const workers = [
+            {
+                name: 'Dog Walker John',
+                image: 'https://via.placeholder.com/100',
+                description: 'Experienced dog walker with 5 years of experience in NW1.',
+                service: 'dog_walker'
+            },
+            {
+                name: 'Handyman Paul',
+                image: 'https://via.placeholder.com/100',
+                description: 'Reliable handyman for all kinds of home repairs in NW1.',
+                service: 'handyman'
+            }
+        ];
+
+        // Simulate populating worker cards based on service
+        function loadResults() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            workers.forEach(worker => {
+                const card = document.createElement('div');
+                card.className = 'worker-card';
+
+                const img = document.createElement('img');
+                img.src = worker.image;
+
+                const details = document.createElement('div');
+                details.className = 'worker-details';
+                details.innerHTML = `<h2>${worker.name}</h2><p>${worker.description}</p>`;
+
+                const button = document.createElement('button');
+                button.className = 'hire-button';
+                button.textContent = 'Hire';
+
+                card.appendChild(img);
+                card.appendChild(details);
+                card.appendChild(button);
+
+                resultsContainer.appendChild(card);
+            });
+        }
+
+        window.onload = loadResults;
+    </script>
+</body>
+</html>
