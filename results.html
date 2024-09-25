@@ -3,116 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
+    <title>Service Providers</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            padding: 0;
+            font-family: Arial, sans-serif;
             margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 2em 0;
+            padding: 2em;
+            font-size: 2.5em;
         }
-        header h1 {
-            margin: 0;
-        }
-        .results-container {
-            max-width: 1000px;
+        .container {
+            max-width: 800px;
             margin: 2em auto;
-            padding: 1em;
-        }
-        .worker-card {
+            padding: 2em;
             background-color: white;
-            margin: 1em 0;
-            padding: 1.5em;
-            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .provider {
+            background-color: #f9f9f9;
+            padding: 1em;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             display: flex;
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            justify-content: space-between;
         }
-        .worker-card img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
+        .provider img {
+            max-width: 80px;
             border-radius: 50%;
-            margin-right: 1.5em;
-        }
-        .worker-details {
-            flex-grow: 1;
-        }
-        .worker-details h2 {
-            margin: 0;
-        }
-        .worker-details p {
-            margin: 0.5em 0;
-        }
-        .hire-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 0.75em;
-            border-radius: 5px;
-            cursor: pointer;
+            margin-right: 20px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Service Providers in Your Area</h1>
+        Service Providers
     </header>
 
-    <div class="results-container" id="resultsContainer">
-        <!-- Worker cards will be inserted here -->
+    <div class="container">
+        <h2 id="service-header"></h2>
+        <div id="results"></div>
     </div>
 
     <script>
-        // Mock data to simulate search results
-        const workers = [
-            {
-                name: 'Dog Walker John',
-                image: 'https://via.placeholder.com/100',
-                description: 'Experienced dog walker with 5 years of experience in NW1.',
-                service: 'dog_walker'
-            },
-            {
-                name: 'Handyman Paul',
-                image: 'https://via.placeholder.com/100',
-                description: 'Reliable handyman for all kinds of home repairs in NW1.',
-                service: 'handyman'
-            }
-        ];
-
-        // Simulate populating worker cards based on service
-        function loadResults() {
-            const resultsContainer = document.getElementById('resultsContainer');
-            workers.forEach(worker => {
-                const card = document.createElement('div');
-                card.className = 'worker-card';
-
-                const img = document.createElement('img');
-                img.src = worker.image;
-
-                const details = document.createElement('div');
-                details.className = 'worker-details';
-                details.innerHTML = `<h2>${worker.name}</h2><p>${worker.description}</p>`;
-
-                const button = document.createElement('button');
-                button.className = 'hire-button';
-                button.textContent = 'Hire';
-
-                card.appendChild(img);
-                card.appendChild(details);
-                card.appendChild(button);
-
-                resultsContainer.appendChild(card);
-            });
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                location: params.get('location'),
+                service: params.get('service')
+            };
         }
 
-        window.onload = loadResults;
+        function showResults() {
+            const { location, service } = getQueryParams();
+            document.getElementById('service-header').textContent = `Service Providers for ${service} in ${location}`;
+
+            // Mock service providers (you can replace this with dynamic data)
+            const providers = {
+                'dog_walker': [
+                    { name: 'Dog Walker 1', image: 'https://via.placeholder.com/80', location },
+                    { name: 'Dog Walker 2', image: 'https://via.placeholder.com/80', location }
+                ],
+                'handyman': [
+                    { name: 'Handyman 1', image: 'https://via.placeholder.com/80', location },
+                    { name: 'Handyman 2', image: 'https://via.placeholder.com/80', location }
+                ],
+                'cleaners': [
+                    { name: 'Cleaner 1', image: 'https://via.placeholder.com/80', location },
+                    { name: 'Cleaner 2', image: 'https://via.placeholder.com/80', location }
+                ]
+            };
+
+            const availableProviders = providers[service] || [];
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';  // Clear previous results
+            availableProviders.forEach(provider => {
+                const providerDiv = document.createElement('div');
+                providerDiv.className = 'provider';
+                providerDiv.innerHTML = `
+                    <img src="${provider.image}" alt="${provider.name}">
+                    <div>
+                        <h3>${provider.name}</h3>
+                        <p>Located in: ${provider.location}</p>
+                    </div>
+                `;
+                resultsDiv.appendChild(providerDiv);
+            });
+
+            if (availableProviders.length === 0) {
+                resultsDiv.innerHTML = '<p>No providers found for your area and selected service.</p>';
+            }
+        }
+
+        window.onload = showResults;
     </script>
 </body>
 </html>
