@@ -6,72 +6,68 @@
     <title>Find a Person</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f4f4f4;
         }
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 2em 0;
-            font-size: 3em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 4em;
-            text-shadow: 2px 2px #333;
+            padding: 2em;
+            font-size: 2.5em;
         }
         .container {
             max-width: 800px;
-            margin: 4em auto;
+            margin: 2em auto;
             padding: 2em;
             background-color: white;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         label {
+            display: block;
+            margin: 1em 0 0.5em;
             font-size: 1.2em;
-            margin-bottom: 0.5em;
         }
         input, select, button {
             width: 100%;
             padding: 1em;
             margin-bottom: 1.5em;
-            border: 2px solid #4CAF50;
-            border-radius: 8px;
-            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
         }
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            font-size: 1.3em;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #45a049;
         }
-        .description {
-            text-align: center;
-            margin-top: 1em;
-            font-size: 1.2em;
-            color: #666;
-        }
     </style>
+    <script>
+        function redirectToResults() {
+            const location = document.getElementById('location').value;
+            const service = document.getElementById('service').value;
+            window.location.href = `results.html?location=${location}&service=${service}`;
+            return false;  // Prevent form submission
+        }
+    </script>
 </head>
 <body>
     <header>
-        <h1>Find a Person</h1>
+        Find a Person
+        <p>Your trusted service providers in your city</p>
     </header>
 
     <div class="container">
-        <form onsubmit="return handleSearch();">
+        <h2>Enter Your Location and Choose a Service</h2>
+
+        <form onsubmit="return redirectToResults();">
             <label for="location">Enter Your City or Postcode:</label>
             <input type="text" id="location" name="location" placeholder="E.g., NW1, E1, SW1A" required>
 
@@ -85,10 +81,6 @@
 
             <button type="submit">Find Service Providers</button>
         </form>
-
-        <div class="description">
-            <p>Find trusted service providers in your area with just a few clicks!</p>
-        </div>
     </div>
 </body>
 </html>
