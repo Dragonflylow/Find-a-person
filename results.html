@@ -146,9 +146,13 @@
 
         function showResults() {
             const { location, service } = getQueryParams();
+            
+            // Log the values of location and service for debugging
+            console.log(`Location: ${location}, Service: ${service}`);
+            
             document.getElementById('service-header').textContent = `Service Providers for ${service} in ${location}`;
-
-            // Mock service providers (you can replace this with dynamic data)
+            
+            // Mock service providers
             const providers = {
                 'dog_walker': [
                     { name: 'Dog Walker 1', image: 'https://via.placeholder.com/80', description: 'Experienced dog walker in your area.' },
@@ -164,25 +168,28 @@
                 ]
             };
 
+            // Check if service exists in the providers object
             const availableProviders = providers[service] || [];
-
+            
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = '';  // Clear previous results
-            availableProviders.forEach(provider => {
-                const providerDiv = document.createElement('div');
-                providerDiv.className = 'provider';
-                providerDiv.innerHTML = `
-                    <img src="${provider.image}" alt="${provider.name}">
-                    <div>
-                        <h3>${provider.name}</h3>
-                        <p>Located in: ${location}</p>
-                    </div>
-                `;
-                providerDiv.onclick = () => showModal(provider);
-                resultsDiv.appendChild(providerDiv);
-            });
-
-            if (availableProviders.length === 0) {
+            
+            // If providers found, render them; else show no results message
+            if (availableProviders.length > 0) {
+                availableProviders.forEach(provider => {
+                    const providerDiv = document.createElement('div');
+                    providerDiv.className = 'provider';
+                    providerDiv.innerHTML = `
+                        <img src="${provider.image}" alt="${provider.name}">
+                        <div>
+                            <h3>${provider.name}</h3>
+                            <p>Located in: ${location}</p>
+                        </div>
+                    `;
+                    providerDiv.onclick = () => showModal(provider);
+                    resultsDiv.appendChild(providerDiv);
+                });
+            } else {
                 resultsDiv.innerHTML = '<p>No providers found for your area and selected service.</p>';
             }
         }
