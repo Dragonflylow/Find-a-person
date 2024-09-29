@@ -11,17 +11,6 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            transition: background-color 0.5s ease;
-        }
-        /* Light Mode */
-        body.light-mode {
-            background-color: #f4f4f4;
-            color: #121212;
-        }
-        /* Dark Mode */
-        body.dark-mode {
-            background-color: #121212;
-            color: #f0f0f0;
         }
         header {
             background: linear-gradient(135deg, #4CAF50, #3b8d40);
@@ -68,24 +57,6 @@
             max-width: 80px;
             border-radius: 50%;
             margin-right: 20px;
-        }
-        /* Toggle Button */
-        .toggle-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        .dark-mode-toggle {
-            background: none;
-            border: 2px solid white;
-            color: white;
-            border-radius: 50px;
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .dark-mode-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.2);
         }
         /* Modal (overlay) styles */
         .modal {
@@ -146,12 +117,8 @@
 
         function showResults() {
             const { location, service } = getQueryParams();
-            
-            // Log the values of location and service for debugging
-            console.log(`Location: ${location}, Service: ${service}`);
-            
             document.getElementById('service-header').textContent = `Service Providers for ${service} in ${location}`;
-            
+
             // Mock service providers
             const providers = {
                 'dog_walker': [
@@ -168,28 +135,25 @@
                 ]
             };
 
-            // Check if service exists in the providers object
             const availableProviders = providers[service] || [];
-            
+
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = '';  // Clear previous results
-            
-            // If providers found, render them; else show no results message
-            if (availableProviders.length > 0) {
-                availableProviders.forEach(provider => {
-                    const providerDiv = document.createElement('div');
-                    providerDiv.className = 'provider';
-                    providerDiv.innerHTML = `
-                        <img src="${provider.image}" alt="${provider.name}">
-                        <div>
-                            <h3>${provider.name}</h3>
-                            <p>Located in: ${location}</p>
-                        </div>
-                    `;
-                    providerDiv.onclick = () => showModal(provider);
-                    resultsDiv.appendChild(providerDiv);
-                });
-            } else {
+            availableProviders.forEach(provider => {
+                const providerDiv = document.createElement('div');
+                providerDiv.className = 'provider';
+                providerDiv.innerHTML = `
+                    <img src="${provider.image}" alt="${provider.name}">
+                    <div>
+                        <h3>${provider.name}</h3>
+                        <p>Located in: ${location}</p>
+                    </div>
+                `;
+                providerDiv.onclick = () => showModal(provider);
+                resultsDiv.appendChild(providerDiv);
+            });
+
+            if (availableProviders.length === 0) {
                 resultsDiv.innerHTML = '<p>No providers found for your area and selected service.</p>';
             }
         }
@@ -215,19 +179,11 @@
         }
 
         window.onload = showResults;
-
-        // Toggle dark mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
     </script>
 </head>
-<body class="light-mode">
+<body>
     <header>
         <a href="index.html">Local:Task</a>
-        <div class="toggle-container">
-            <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        </div>
     </header>
 
     <div class="container">
