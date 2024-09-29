@@ -3,136 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local:Task</title>
+    <title>Local:Task Splash</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
-            transition: background-color 0.5s ease;
-        }
-        /* Light Mode Styling */
-        body.light-mode {
-            background-color: #f4f4f4;
-        }
-        /* Dark Mode Styling */
-        body.dark-mode {
-            background-color: #121212;
-            color: #f0f0f0;
+            color: #333;
         }
         header {
             background: linear-gradient(135deg, #4CAF50, #3b8d40);
             color: white;
+            padding: 20px;
             text-align: center;
-            padding: 2em;
-            font-size: 2.5em;
-            position: relative;
-        }
-        header a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        header p {
-            font-size: 1.2em;
-            font-weight: 400;
-            margin: 0;
-            padding-top: 0.5em;
-        }
-        /* Toggle Button */
-        .toggle-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        .dark-mode-toggle {
-            background: none;
-            border: 2px solid white;
-            color: white;
-            border-radius: 50px;
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .dark-mode-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            font-size: 2em;
         }
         .container {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            text-align: center;
         }
-        label {
-            display: block;
-            margin: 1em 0 0.5em;
+        h1 {
+            font-size: 3em;
+            color: #333;
+        }
+        p {
             font-size: 1.2em;
+            color: #666;
         }
-        input, select, button {
-            width: 100%;
-            padding: 1em;
-            margin-bottom: 1.5em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .search-bar {
+            margin-top: 30px;
+        }
+        input[type="text"] {
+            padding: 15px;
             font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
         }
-        button {
+        input[type="submit"] {
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
             background-color: #4CAF50;
             color: white;
-            border: none;
             cursor: pointer;
+            margin-left: 10px;
             transition: background-color 0.3s;
         }
-        button:hover {
+        input[type="submit"]:hover {
             background-color: #45a049;
         }
-        button:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
     </style>
-    <script>
-        function redirectToResults() {
-            const location = document.getElementById('location').value;
-            const service = document.getElementById('service').value;
-            window.location.href = `results.html?location=${location}&service=${service}`;
-            return false;  // Prevent form submission
-        }
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-    </script>
 </head>
-<body class="light-mode">
-    <header>
-        <a href="index.html">Local:Task</a>
-        <p>Local People - Local Tasks</p>
-        <div class="toggle-container">
-            <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        </div>
-    </header>
+<body>
 
-    <div class="container">
-        <h2>Enter Your Location and Choose a Service</h2>
+<header>
+    Local:Task
+</header>
 
-        <form onsubmit="return redirectToResults();">
-            <label for="location">Enter Your City or Postcode:</label>
-            <input type="text" id="location" name="location" placeholder="E.g., NW1, E1, SW1A" required>
-
-            <label for="service">Choose a Service Category:</label>
-            <select id="service" name="service" required>
-                <option value="">-- Select a Service --</option>
-                <option value="dog_walker">Dog Walker</option>
-                <option value="handyman">Handyman</option>
-                <option value="cleaners">Cleaners</option>
-            </select>
-
-            <button type="submit">Find Service Providers</button>
-        </form>
+<div class="container">
+    <h1>Find Trusted Service Providers in Your Area</h1>
+    <p>Book cleaners, handymen, dog walkers, and more with ease.</p>
+    <div class="search-bar">
+        <input type="text" placeholder="Enter your city" id="city">
+        <input type="submit" value="Search">
     </div>
+</div>
+
 </body>
 </html>
